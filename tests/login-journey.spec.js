@@ -34,4 +34,16 @@ test('should successfully execute a complete checkout journey', async ({ page })
     /* Option A Assertion: Verifying the dynamic badge count directly inside the parent container link */
     await expect(page.locator('[data-test="shopping-cart-link"]')).toHaveText('1');
   });
+
+  // Step 5: Route into the cart page and verify line-item inventory state matches our selection
+  await test.step('5. Validate cart inventory state', async () => {
+    // Navigate to the shopping cart page view
+    await page.locator('[data-test="shopping-cart-link"]').click();
+
+    // Verify the cart list container renders successfully
+    await expect(page.locator('[data-test="cart-list"]')).toBeVisible();
+
+    // Assert the first row item quantity matches our expected baseline count of 1
+    await expect(page.locator('[data-test="item-quantity"]').first()).toHaveText('1');
+  });
 });
