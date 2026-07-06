@@ -24,4 +24,14 @@ test('should successfully execute a complete checkout journey', async ({ page })
     /* First core checkpoint verifying that the product catalogue container has fully initialised */
     await expect(page.locator('[data-test="inventory-container"]')).toBeVisible();
   });
+
+  // Step 4: Dynamically select a product and assert that the container registers the count change
+  await test.step('4. Add item to shopping basket', async () => {
+    /* Senior Strategy: Using an attribute-start operator (^=) to target the first available item 
+       independent of changing inventory data, proving framework execution resilience. */
+    await page.locator('[data-test^="add-to-cart-"]').first().click();
+    
+    /* Option A Assertion: Verifying the dynamic badge count directly inside the parent container link */
+    await expect(page.locator('[data-test="shopping-cart-link"]')).toHaveText('1');
+  });
 });
