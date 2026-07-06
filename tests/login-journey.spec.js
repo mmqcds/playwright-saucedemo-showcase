@@ -1,14 +1,27 @@
 const { test, expect } = require('@playwright/test');
 
+/**
+ * End-to-End User Journey Showcase
+ * Target: Complete purchasing funnel validation via a lean "steel-thread" progression.
+ * Observability: Employs native test.step encapsulation for recruiter-visible execution tracing.
+ */
 test('should successfully execute a complete checkout journey', async ({ page }) => {
-  // 1. Navigate to the application base URL
-  await page.goto('https://www.saucedemo.com/');
+  
+  // Step 1: Establish connection and confirm baseline application availability
+  await test.step('1. Navigate to store homepage', async () => {
+    await page.goto('/');
+  });
 
-  // 2. Log in using standard user credentials
-  await page.locator('[data-test="username"]').fill('standard_user');
-  await page.locator('[data-test="password"]').fill('secret_sauce');
-  await page.locator('[data-test="login-button"]').click();
+  // Step 2: Clear the authentication gate using verified data-driven locators
+  await test.step('2. Authenticate standard user credentials', async () => {
+    await page.locator('[data-test="username"]').fill('standard_user');
+    await page.locator('[data-test="password"]').fill('secret_sauce');
+    await page.locator('[data-test="login-button"]').click();
+  });
 
-  // 3. Verify successful login by ensuring the products inventory list is visible
-  await expect(page.locator('[data-test="inventory-container"]')).toBeVisible();
+  // Step 3: Validate successful state transition into the authenticated dashboard environment
+  await test.step('3. Verify inventory dashboard visibility', async () => {
+    /* First core checkpoint verifying that the product catalogue container has fully initialised */
+    await expect(page.locator('[data-test="inventory-container"]')).toBeVisible();
+  });
 });
