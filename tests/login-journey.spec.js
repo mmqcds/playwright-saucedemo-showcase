@@ -46,4 +46,14 @@ test('should successfully execute a complete checkout journey', async ({ page })
     // Assert the first row item quantity matches our expected baseline count of 1
     await expect(page.locator('[data-test="item-quantity"]').first()).toHaveText('1');
   });
+
+  // Step 6: Transition from the validated cart screen to the checkout information form
+  await test.step('6. Click the checkout button', async () => {
+    // Trigger the page transition boundary via our uniform attribute selector
+    await page.locator('[data-test="checkout"]').click();
+
+    /* Structural Gateway Assertion: Verify successful transition by confirming 
+       the information form container is fully visible before concluding the step */
+    await expect(page.locator('[data-test="checkout-info-container"]')).toBeVisible();
+  });
 });
