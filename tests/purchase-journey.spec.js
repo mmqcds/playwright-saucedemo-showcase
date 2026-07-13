@@ -73,7 +73,7 @@ test('should successfully execute a complete checkout journey', async ({ page })
     await expect(page.locator('[data-test="payment-info-value"]')).toHaveText(/SauceCard #\d+/);
   });
 
-  // Step 8: Finalize the transaction and verify successful order completion
+  // Step 8: Finalise the transaction and verify successful order completion
   await test.step('8. Click the finish button', async () => {
     // Trigger the final checkout completion action
     await page.locator('[data-test="finish"]').click();
