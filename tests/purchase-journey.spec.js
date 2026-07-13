@@ -56,4 +56,20 @@ test('should successfully execute a complete checkout journey', async ({ page })
        the information form container is fully visible before concluding the step */
     await expect(page.locator('[data-test="checkout-info-container"]')).toBeVisible();
   });
+
+  // Step 7: Populate required information fields and assert successful transition to the overview screen
+  await test.step('7. Populate checkout information form', async () => {
+    // Populate form data using our isolated static test data strings
+    await page.locator('[data-test="firstName"]').fill('John');
+    await page.locator('[data-test="lastName"]').fill('Doe');
+    await page.locator('[data-test="postalCode"]').fill('AB12 3DE');
+
+    // Submit the form to transition to the overview phase
+    await page.locator('[data-test="continue"]').click();
+
+    /* Structural Gateway Assertions: Verify successful transition by confirming 
+       the overview data and line items are present using our defensive strategies */
+    await expect(page.locator('[data-test="item-quantity"]').first()).toHaveText('1');
+    await expect(page.locator('[data-test="payment-info-value"]')).toHaveText(/SauceCard #\d+/);
+  });
 });
