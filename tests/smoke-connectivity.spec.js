@@ -1,9 +1,15 @@
 const { test, expect } = require('@playwright/test');
 
+/**
+ * Baseline Smoke Connectivity Validation
+ * Target: Verify core domain responsiveness, SSL handshaking, and initial branding state.
+ * Alignment: Utilises the global config-declared baseURL to eliminate string redundancy.
+ */
 test('should successfully load the login page and verify the page title', async ({ page }) => {
-  // Navigate to the target web application
-  await page.goto('https://www.saucedemo.com/');
+  // Senior Refactor: Utilising the config-defined baseURL single source of truth
+  await page.goto('/');
 
-  // Assert that the page title matches the official branding string exactly
+  // Dual-Layered Smoke Assertions: Validate routing resolution and branding state simultaneously
+  await expect(page).toHaveURL(/.*saucedemo\.com/);
   await expect(page).toHaveTitle('Swag Labs');
 });
