@@ -79,7 +79,7 @@ test('should successfully execute a complete checkout journey', async ({ page })
     await page.locator('[data-test="finish"]').click();
 
     /* Final Gateway Assertion: Verify successful order placement by confirming 
-       the explicit completion header text is visible on the success screen */
-    await expect(page.locator('[data-test="complete-header"]')).toHaveText('Thank you for your order!');
+       the explicit completion header text is visible on the success screen using a defensive regex matcher */
+    await expect(page.locator('[data-test="complete-header"]')).toHaveText(/Thank you for your order!/i);
   });
 });

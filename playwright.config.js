@@ -30,11 +30,19 @@ module.exports = defineConfig({
     trace: 'retain-on-failure',
   },
 
-  /* Configure projects for major browser engines */
+  /* Configure projects for major browser engines to align with our Operational Script Matrix */
   projects: [
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
     },
   ],
 });
