@@ -1,15 +1,19 @@
 {
-  "name": "playwrightshowcase",
+  "name": "playwright-saucedemo-showcase",
   "version": "1.0.0",
-  "description": "",
+  "description": "A QA-forward end-to-end automation showcase utilising Playwright.",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx playwright test",
+    "test:chromium": "npx playwright test --project=chromium",
+    "test:matrix": "npx playwright test --project=chromium --project=firefox --project=webkit",
+    "test:ui": "npx playwright test --ui",
+    "test:report": "npx playwright show-report"
+  },
   "keywords": [],
-  "author": "",
+  "author": "Calogero Sapia (https://www.linkedin.com/in/cdsapia)",
   "license": "ISC",
-  "type": "commonjs",
   "devDependencies": {
-    "@playwright/test": "^1.61.1",
-    "@types/node": "^26.0.1"
+    "@playwright/test": "^1.49.0"
   }
 }
