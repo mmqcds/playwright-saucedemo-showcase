@@ -72,4 +72,14 @@ test('should successfully execute a complete checkout journey', async ({ page })
     await expect(page.locator('[data-test="item-quantity"]').first()).toHaveText('1');
     await expect(page.locator('[data-test="payment-info-value"]')).toHaveText(/SauceCard #\d+/);
   });
+
+  // Step 8: Finalize the transaction and verify successful order completion
+  await test.step('8. Click the finish button', async () => {
+    // Trigger the final checkout completion action
+    await page.locator('[data-test="finish"]').click();
+
+    /* Final Gateway Assertion: Verify successful order placement by confirming 
+       the explicit completion header text is visible on the success screen */
+    await expect(page.locator('[data-test="complete-header"]')).toHaveText('Thank you for your order!');
+  });
 });
