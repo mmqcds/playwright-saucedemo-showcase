@@ -54,8 +54,10 @@ test('should successfully execute a complete checkout journey', async ({ page })
 
   // Step 6: Transition from the validated cart screen to the checkout information form
   await test.step('6. Click the checkout button', async () => {
-    // Trigger the page transition boundary via our uniform attribute selector
-    await page.locator('[data-test="checkout"]').click();
+    const cartPage = new CartPage(page);
+
+    // Trigger the page transition boundary via our uniform page object method
+    await cartPage.proceedToCheckout();
 
     /* Structural Gateway Assertion: Verify successful transition by confirming 
        the information form container is fully visible before concluding the step */

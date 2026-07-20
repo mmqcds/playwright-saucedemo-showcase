@@ -6,6 +6,7 @@ class CartPage {
     this.page = page;
     this.cartListContainer = page.locator('[data-test="cart-list"]');
     this.itemQuantityLabel = page.locator('[data-test="item-quantity"]');
+    this.checkoutButton = page.locator('[data-test="checkout"]');
   }
 
   /**
@@ -22,6 +23,13 @@ class CartPage {
    */
   getFirstItemQuantity() {
     return this.itemQuantityLabel.first();
+  }
+
+  /**
+   * Initiates the checkout process by clicking the checkout button
+   */
+  async proceedToCheckout() {
+    await this.checkoutButton.click();
   }
 }
 
