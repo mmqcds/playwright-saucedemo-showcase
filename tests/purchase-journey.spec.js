@@ -1,5 +1,6 @@
 const { test, expect } = require('@playwright/test');
 const { LoginPage } = require('../pages/LoginPage');
+const { ProductsPage } = require('../pages/ProductsPage');
 
 /**
  * End-to-End User Journey Showcase
@@ -28,12 +29,11 @@ test('should successfully execute a complete checkout journey', async ({ page })
 
   // Step 4: Dynamically select a product and assert that the container registers the count change
   await test.step('4. Add item to shopping basket', async () => {
-    /* Senior Strategy: Using an attribute-start operator (^=) to target the first available item 
-       independent of changing inventory data, proving framework execution resilience. */
-    await page.locator('[data-test^="add-to-cart-"]').first().click();
+    const productsPage = new ProductsPage(page);
+    await productsPage.addFirstItemToCart();
     
     /* Option A Assertion: Verifying the dynamic badge count directly inside the parent container link */
-    await expect(page.locator('[data-test="shopping-cart-link"]')).toHaveText('1');
+    await expect(productsPage.getCartLink()).toHaveText('1');
   });
 
   // Step 5: Route into the cart page and verify line-item inventory state matches our selection
