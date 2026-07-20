@@ -10,6 +10,7 @@ test('should successfully execute a complete checkout journey', async ({ page })
   // Step 1: Establish connection and confirm baseline application availability
   await test.step('1. Navigate to store homepage', async () => {
     await page.goto('/');
+    await expect(page.locator('[data-test="login-container"]')).toBeVisible();
   });
 
   // Step 2: Clear the authentication gate using verified data-driven locators
