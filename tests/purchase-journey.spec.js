@@ -1,6 +1,7 @@
 const { test, expect } = require('@playwright/test');
 const { LoginPage } = require('../pages/LoginPage');
 const { ProductsPage } = require('../pages/ProductsPage');
+const { CartPage } = require('../pages/CartPage');
 
 /**
  * End-to-End User Journey Showcase
@@ -38,14 +39,17 @@ test('should successfully execute a complete checkout journey', async ({ page })
 
   // Step 5: Route into the cart page and verify line-item inventory state matches our selection
   await test.step('5. Validate cart inventory state', async () => {
-    // Navigate to the shopping cart page view
-    await page.locator('[data-test="shopping-cart-link"]').click();
+    const productsPage = new ProductsPage(page);
+    const cartPage = new CartPage(page);
+
+    // Navigate to the shopping cart page view using the ProductsPage component
+    await productsPage.getCartLink().click();
 
     // Verify the cart list container renders successfully
-    await expect(page.locator('[data-test="cart-list"]')).toBeVisible();
+    await expect(cartPage.getCartListContainer()).toBeVisible();
 
     // Assert the first row item quantity matches our expected baseline count of 1
-    await expect(page.locator('[data-test="item-quantity"]').first()).toHaveText('1');
+    await expect(cartPage.getFirstItemQuantity()).toHaveText('1');
   });
 
   // Step 6: Transition from the validated cart screen to the checkout information form
