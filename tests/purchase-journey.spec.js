@@ -1,4 +1,5 @@
 const { test, expect } = require('@playwright/test');
+const { LoginPage } = require('../pages/LoginPage');
 
 /**
  * End-to-End User Journey Showcase
@@ -6,6 +7,7 @@ const { test, expect } = require('@playwright/test');
  * Observability: Employs native test.step encapsulation for recruiter-visible execution tracing.
  */
 test('should successfully execute a complete checkout journey', async ({ page }) => {
+  const loginPage = new LoginPage(page);
   
   // Step 1: Establish connection and confirm baseline application availability
   await test.step('1. Navigate to store homepage', async () => {
@@ -15,9 +17,7 @@ test('should successfully execute a complete checkout journey', async ({ page })
 
   // Step 2: Clear the authentication gate using verified data-driven locators
   await test.step('2. Authenticate standard user credentials', async () => {
-    await page.locator('[data-test="username"]').fill('standard_user');
-    await page.locator('[data-test="password"]').fill('secret_sauce');
-    await page.locator('[data-test="login-button"]').click();
+    await loginPage.login('standard_user', 'secret_sauce');
   });
 
   // Step 3: Validate successful state transition into the authenticated dashboard environment
