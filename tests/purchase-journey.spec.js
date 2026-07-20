@@ -3,6 +3,7 @@ const { LoginPage } = require('../pages/LoginPage');
 const { ProductsPage } = require('../pages/ProductsPage');
 const { CartPage } = require('../pages/CartPage');
 const { CheckoutInfoPage } = require('../pages/CheckoutInfoPage');
+const { CheckoutOverviewPage } = require('../pages/CheckoutOverviewPage');
 
 /**
  * End-to-End User Journey Showcase
@@ -80,11 +81,13 @@ test('should successfully execute a complete checkout journey', async ({ page })
 
   // Step 8: Finalise the transaction and verify successful order completion
   await test.step('8. Click the finish button', async () => {
-    // Trigger the final checkout completion action
-    await page.locator('[data-test="finish"]').click();
+    const checkoutOverviewPage = new CheckoutOverviewPage(page);
+
+    // Trigger the final checkout completion action via our page object method
+    await checkoutOverviewPage.finaliseOrder();
 
     /* Final Gateway Assertion: Verify successful order placement by confirming 
        the explicit completion header text is visible on the success screen using a defensive regex matcher */
-    await expect(page.locator('[data-test="complete-header"]')).toHaveText(/Thank you for your order!/i);
+    await expect(checkoutOverviewPage.getCompleteHeader()).toHaveText(/Thank you for your order!/i);
   });
 });
