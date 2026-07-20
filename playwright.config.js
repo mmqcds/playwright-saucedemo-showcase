@@ -30,19 +30,29 @@ module.exports = defineConfig({
     trace: 'retain-on-failure',
   },
 
-  /* Configure projects for major browser engines to align with our Operational Script Matrix */
+/* Configure projects for major browser engines to align with our Operational Script Matrix */
   projects: [
+    {
+      name: 'Smoke Setup',
+      testMatch: /.*smoke-connectivity\.spec\.js/,
+    },
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+      dependencies: ['Smoke Setup'],
+      testIgnore: /.*smoke-connectivity\.spec\.js/,
     },
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
+      dependencies: ['Smoke Setup'],
+      testIgnore: /.*smoke-connectivity\.spec\.js/,
     },
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
+      dependencies: ['Smoke Setup'],
+      testIgnore: /.*smoke-connectivity\.spec\.js/,
     },
   ],
 });
