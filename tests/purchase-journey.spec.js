@@ -2,6 +2,7 @@ const { test, expect } = require('@playwright/test');
 const { LoginPage } = require('../pages/LoginPage');
 const { ProductsPage } = require('../pages/ProductsPage');
 const { CartPage } = require('../pages/CartPage');
+const { CheckoutInfoPage } = require('../pages/CheckoutInfoPage');
 
 /**
  * End-to-End User Journey Showcase
@@ -66,13 +67,10 @@ test('should successfully execute a complete checkout journey', async ({ page })
 
   // Step 7: Populate required information fields and assert successful transition to the overview screen
   await test.step('7. Populate checkout information form', async () => {
-    // Populate form data using our isolated static test data strings
-    await page.locator('[data-test="firstName"]').fill('John');
-    await page.locator('[data-test="lastName"]').fill('Doe');
-    await page.locator('[data-test="postalCode"]').fill('AB12 3DE');
+    const checkoutInfoPage = new CheckoutInfoPage(page);
 
-    // Submit the form to transition to the overview phase
-    await page.locator('[data-test="continue"]').click();
+    // Populate form data using the encapsulated page object model method
+    await checkoutInfoPage.populateInformationForm('John', 'Doe', 'AB12 3CD');
 
     /* Structural Gateway Assertions: Verify successful transition by confirming 
        the overview data and line items are present using our defensive strategies */
