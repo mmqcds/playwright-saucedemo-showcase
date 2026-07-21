@@ -1,9 +1,14 @@
 class LoginPage {
   constructor(page) {
     this.page = page;
+    this.loginContainer = page.locator('[data-test="login-container"]');
     this.usernameInput = page.locator('[data-test="username"]');
     this.passwordInput = page.locator('[data-test="password"]');
     this.loginButton = page.locator('[data-test="login-button"]');
+  }
+
+  getLoginContainer() {
+    return this.loginContainer;
   }
 
   async login(username, password) {

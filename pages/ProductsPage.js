@@ -1,8 +1,13 @@
 class ProductsPage {
   constructor(page) {
     this.page = page;
+    this.inventoryContainer = page.locator('[data-test="inventory-container"]');
     this.addToCartButtons = page.locator('[data-test^="add-to-cart-"]');
     this.shoppingCartLink = page.locator('[data-test="shopping-cart-link"]');
+  }
+
+  getInventoryContainer() {
+    return this.inventoryContainer;
   }
 
   async addFirstItemToCart() {
