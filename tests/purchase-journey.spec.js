@@ -12,6 +12,10 @@ const { CheckoutOverviewPage } = require('../pages/CheckoutOverviewPage');
  */
 test('should successfully execute a complete checkout journey', async ({ page }) => {
   const loginPage = new LoginPage(page);
+  const productsPage = new ProductsPage(page);
+  const cartPage = new CartPage(page);
+  const checkoutInfoPage = new CheckoutInfoPage(page);
+  const checkoutOverviewPage = new CheckoutOverviewPage(page);
   
   // Step 1: Establish connection and confirm baseline application availability
   await test.step('1. Navigate to store homepage', async () => {
@@ -32,7 +36,6 @@ test('should successfully execute a complete checkout journey', async ({ page })
 
   // Step 4: Dynamically select a product and assert that the container registers the count change
   await test.step('4. Add item to shopping basket', async () => {
-    const productsPage = new ProductsPage(page);
     await productsPage.addFirstItemToCart();
     
     /* Option A Assertion: Verifying the dynamic badge count directly inside the parent container link */
@@ -41,9 +44,6 @@ test('should successfully execute a complete checkout journey', async ({ page })
 
   // Step 5: Route into the cart page and verify line-item inventory state matches our selection
   await test.step('5. Validate cart inventory state', async () => {
-    const productsPage = new ProductsPage(page);
-    const cartPage = new CartPage(page);
-
     // Navigate to the shopping cart page view using the ProductsPage component
     await productsPage.getCartLink().click();
 
@@ -56,8 +56,6 @@ test('should successfully execute a complete checkout journey', async ({ page })
 
   // Step 6: Transition from the validated cart screen to the checkout information form
   await test.step('6. Click the checkout button', async () => {
-    const cartPage = new CartPage(page);
-
     // Trigger the page transition boundary via our uniform page object method
     await cartPage.proceedToCheckout();
 
@@ -68,21 +66,17 @@ test('should successfully execute a complete checkout journey', async ({ page })
 
   // Step 7: Populate required information fields and assert successful transition to the overview screen
   await test.step('7. Populate checkout information form', async () => {
-    const checkoutInfoPage = new CheckoutInfoPage(page);
-
     // Populate form data using the encapsulated page object model method
     await checkoutInfoPage.populateInformationForm('John', 'Doe', 'AB12 3CD');
 
     /* Structural Gateway Assertions: Verify successful transition by confirming 
-       the overview data and line items are present using our defensive strategies */
-    await expect(page.locator('[data-test="item-quantity"]').first()).toHaveText('1');
-    await expect(page.locator('[data-test="payment-info-value"]')).toHaveText(/SauceCard #\d+/);
+       the overview data and line items are present using encapsulated page object getters */
+    await expect(checkoutOverviewPage.getFirstItemQuantity()).toHaveText('1');
+    await expect(checkoutOverviewPage.getPaymentInfoValue()).toHaveText(/SauceCard #\d+/);
   });
 
   // Step 8: Finalise the transaction and verify successful order completion
   await test.step('8. Click the finish button', async () => {
-    const checkoutOverviewPage = new CheckoutOverviewPage(page);
-
     // Trigger the final checkout completion action via our page object method
     await checkoutOverviewPage.finaliseOrder();
 
