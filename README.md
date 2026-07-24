@@ -13,7 +13,16 @@ A production-grade end-to-end automation showcase demonstrating scalable, determ
 
 ## 2. Prerequisites and Quick Start
 
-Ensure Node.js (LTS version) is installed on your local machine before execution.
+Ensure **Node.js (LTS version)** and **Git** are installed on your local machine before execution.
+
+**Node**: <https://nodejs.org/>
+
+**Git**: <https://git-scm.com/>
+
+### Clone via Git (Recommended)
+
+Create a directory for the cloned repository, and navigate to it in your terminal.
+Then run the following commands:
 
 ```bash
 # Clone the repository using HTTPS and navigate to the project root
@@ -28,6 +37,14 @@ npx playwright install --with-deps
 
 # Run local development shortcut to verify configuration integrity
 npm run test:chromium
+```
+
+Windows PowerShell Execution Note: If PowerShell displays a script execution policy error (PSSecurityException), append .cmd to the executable commands i.e.
+
+```bash
+npm.cmd ci
+npx.cmd playwright install --with-deps
+npm.cmd run test:chromium
 ```
 
 ## 3. Operational Script Matrix
