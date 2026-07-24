@@ -16,12 +16,15 @@ A production-grade end-to-end automation showcase demonstrating scalable, determ
 Ensure Node.js (LTS version) is installed on your local machine before execution.
 
 ```bash
-# Clone the repository and navigate to the project root
-git clone git@github.com:mmqcds/playwright-saucedemo-showcase.git
+# Clone the repository using HTTPS and navigate to the project root
+git clone https://github.com/mmqcds/playwright-saucedemo-showcase.git
 cd playwright-saucedemo-showcase
 
 # Install core development framework dependencies
-npm install
+npm ci
+
+# Install required Playwright browser binaries and system dependencies
+npx playwright install --with-deps
 
 # Run local development shortcut to verify configuration integrity
 npm run test:chromium
