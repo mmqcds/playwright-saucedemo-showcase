@@ -45,6 +45,9 @@ validation environments:
 ```bash
 
 playwright-saucedemo-showcase/
+├── .github/
+│   └── workflows
+│       └── playwright.yml 
 ├── pages/
 │   ├── CartPage.js                  # Cart container and transition logic
 │   ├── CheckoutInfoPage.js          # User details form interaction model
