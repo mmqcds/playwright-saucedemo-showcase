@@ -4,11 +4,12 @@ const { ProductsPage } = require('../pages/ProductsPage');
 const { CartPage } = require('../pages/CartPage');
 const { CheckoutInfoPage } = require('../pages/CheckoutInfoPage');
 const { CheckoutOverviewPage } = require('../pages/CheckoutOverviewPage');
+const { TEST_DATA } = require('../utils/testData');
 
 /**
  * End-to-End User Journey Showcase
  * Target: Complete purchasing funnel validation via a lean "steel-thread" progression.
- * Observability: Employs native test.step encapsulation for recruiter-visible execution tracing.
+ * Observability: Employs native test.step encapsulation for reviewer-visible execution tracing.
  */
 test('should successfully execute a complete checkout journey', async ({ page }) => {
   const loginPage = new LoginPage(page);
@@ -23,7 +24,10 @@ test('should successfully execute a complete checkout journey', async ({ page })
   });
 
   await test.step('2. Authenticate standard user credentials', async () => {
-    await loginPage.login('standard_user', 'secret_sauce');
+    await loginPage.login(
+      TEST_DATA.USERS.STANDARD.username,
+      TEST_DATA.USERS.STANDARD.password
+    );
   });
 
   await test.step('3. Verify inventory dashboard visibility', async () => {
@@ -47,7 +51,11 @@ test('should successfully execute a complete checkout journey', async ({ page })
   });
 
   await test.step('7. Populate checkout information form', async () => {
-    await checkoutInfoPage.populateInformationForm('John', 'Doe', 'AB12 3CD');
+    await checkoutInfoPage.populateInformationForm(
+      TEST_DATA.CUSTOMER_INFO.firstName,
+      TEST_DATA.CUSTOMER_INFO.lastName,
+      TEST_DATA.CUSTOMER_INFO.postalCode
+    );
     await expect(checkoutOverviewPage.getFirstItemQuantity()).toHaveText('1');
     await expect(checkoutOverviewPage.getPaymentInfoValue()).toHaveText(/SauceCard #\d+/);
   });
