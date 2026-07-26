@@ -11,6 +11,10 @@ class LoginPage {
     return this.loginContainer;
   }
 
+  async navigate() {
+    await this.page.goto('/');
+  }
+
   async login(username, password) {
     await this.usernameInput.fill(username);
     await this.passwordInput.fill(password);

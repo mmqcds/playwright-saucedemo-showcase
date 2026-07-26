@@ -18,7 +18,7 @@ test('should successfully execute a complete checkout journey', async ({ page })
   const checkoutOverviewPage = new CheckoutOverviewPage(page);
   
   await test.step('1. Navigate to store homepage', async () => {
-    await page.goto('/');
+    await loginPage.navigate();
     await expect(loginPage.getLoginContainer()).toBeVisible();
   });
 
