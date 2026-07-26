@@ -67,17 +67,20 @@ validation environments:
 playwright-saucedemo-showcase/
 ├── .github/
 │   └── workflows
-│       └── playwright.yml 
-├── pages/
-│   ├── CartPage.js                  # Cart container and transition logic
-│   ├── CheckoutInfoPage.js          # User details form interaction model
-│   ├── CheckoutOverviewPage.js      # Order summary and finalisation handlers
-│   ├── LoginPage.js                 # Authentication entry points and container
-│   ├── ProductsPage.js               # Catalogue navigation and basket interactions
-├── tests/
-│   ├── purchase-journey.spec.js     # Target user workflow automation script
-│   └── smoke-connectivity.spec.js   # Base connectivity and navigation sanity checks
-├── package.json                     # Dependency footprint and script definitions
-├── playwright.config.js             # Global runner controls and core base URL anchoring
-└── README.md
+│       └── playwright.yml           # GitHub Actions CI workflow definition
+├── pages/                           # Encapsulated Page Object Model (POM) classes
+│   ├── CartPage.js                  # Basket inventory validation actions
+│   ├── CheckoutInfoPage.js          # Customer information form interactions
+│   ├── CheckoutOverviewPage.js      # Order review and finalisation actions
+│   ├── LoginPage.js                 # Authentication and entry-point navigation
+│   ├── ProductsPage.js              # Catalogue and inventory interaction logic
+├── tests/                           # End-to-end and connectivity test suites
+│   ├── purchase-journey.spec.js     # Steel-thread end-to-end checkout journey
+│   └── smoke-connectivity.spec.js   # Baseline domain accessibility checks
+├── utils/                           # Supporting test data and utility modules
+│   └── testData.js                  # Decoupled static credentials and payloads
+├── .gitignore                       # Git exclusion rules for local artefacts
+├── package.json                     # Framework dependencies and npm script shortcuts
+├── playwright.config.js             # Centralised Playwright runner configuration
+└── README.md                        # Framework documentation and operational guide
 ```
