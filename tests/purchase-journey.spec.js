@@ -1,10 +1,10 @@
 const { test, expect } = require('@playwright/test');
-const { LoginPage } = require('../pages/LoginPage');
-const { ProductsPage } = require('../pages/ProductsPage');
-const { CartPage } = require('../pages/CartPage');
-const { CheckoutInfoPage } = require('../pages/CheckoutInfoPage');
-const { CheckoutOverviewPage } = require('../pages/CheckoutOverviewPage');
-const { TEST_DATA } = require('../utils/testData');
+const { LoginPage } = require('../pages/pg-LoginPage');
+const { ProductsPage } = require('../pages/pg-ProductsPage');
+const { CartPage } = require('../pages/pg-CartPage');
+const { CheckoutInfoPage } = require('../pages/pg-CheckoutInfoPage');
+const { CheckoutOverviewPage } = require('../pages/pg-CheckoutOverviewPage');
+const { TEST_DATA } = require('../data/dt-testData');
 
 /**
  * End-to-End User Journey Showcase
