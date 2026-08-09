@@ -5,6 +5,8 @@ A production-grade end-to-end automation showcase demonstrating scalable, determ
 ## 1. Core Engineering Principles
 
 * **Centralised Configuration** – Brittle, inline environment strings are eliminated by anchoring the entire test infrastructure to a globally managed `baseURL` within `playwright.config.js`.
+* **Page Object Navigation Abstraction** – Encapsulates page locators, interactions, and entry-point navigation (`loginPage.navigate()`) within Page Objects to keep test scripts lean.
+* **Decoupled Test Data Layer** – Centralises static authentication credentials and customer form payloads inside `data/dt-testData.js` to eliminate hardcoded strings.
 * **Operational Script Matrix** – Implements a structured script footprint to separate rapid, local smoke testing from comprehensive, parallelised cross-browser validation runs.
 * **Cascading Pipeline Observability** – Configures a global `Smoke Setup` project dependency in `playwright.config.js` that executes base connectivity checks prior to triggering multi-browser execution, safeguarding CI resources against systemic environment outages.
 * **Strict Hermetic Isolation** – Tests are designed to run completely independently, preventing shared-state leakage and ensuring reliable execution patterns across concurrent pipelines.
@@ -66,19 +68,19 @@ validation environments:
 
 playwright-saucedemo-showcase/
 ├── .github/
-│   └── workflows
+│   └── workflows/
 │       └── playwright.yml           # GitHub Actions CI workflow definition
+├── data/                            # Centralised test data constant modules
+│   └── dt-testData.js               # Decoupled static credentials and payloads
 ├── pages/                           # Encapsulated Page Object Model (POM) classes
-│   ├── CartPage.js                  # Basket inventory validation actions
-│   ├── CheckoutInfoPage.js          # Customer information form interactions
-│   ├── CheckoutOverviewPage.js      # Order review and finalisation actions
-│   ├── LoginPage.js                 # Authentication and entry-point navigation
-│   ├── ProductsPage.js              # Catalogue and inventory interaction logic
+│   ├── pg-CartPage.js               # Basket inventory validation actions
+│   ├── pg-CheckoutInfoPage.js       # Customer information form interactions
+│   ├── pg-CheckoutOverviewPage.js   # Order review and finalisation actions
+│   ├── pg-LoginPage.js              # Authentication and entry-point navigation
+│   └── pg-ProductsPage.js           # Catalogue and inventory interaction logic
 ├── tests/                           # End-to-end and connectivity test suites
 │   ├── purchase-journey.spec.js     # Steel-thread end-to-end checkout journey
 │   └── smoke-connectivity.spec.js   # Baseline domain accessibility checks
-├── utils/                           # Supporting test data and utility modules
-│   └── testData.js                  # Decoupled static credentials and payloads
 ├── .gitignore                       # Git exclusion rules for local artefacts
 ├── package.json                     # Framework dependencies and npm script shortcuts
 ├── playwright.config.js             # Centralised Playwright runner configuration
