@@ -13,12 +13,12 @@ module.exports = defineConfig({
   forbidOnly: !!process.env.CI,
   /* Retry on CI only to catch intermittent infrastructure instability */
   retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI if resource constraints dictate it */
-  workers: process.env.CI ? 1 : undefined,
+  /* Enforce single-worker execution globally to eliminate local matrix deadlock and socket exhaustion */
+  workers: 1,
   /* Centralised reporter setup for local and continuous integration views */
   reporter: 'html',
   
-  /* Shared settings for all the projects below – lifting the bonnet on global hooks */
+  /* Shared settings for all the projects below - lifting the bonnet on global hooks */
   use: {
     /* Base URL used in page.goto() paths across the test lifecycle */
     baseURL: 'https://www.saucedemo.com',
@@ -30,7 +30,7 @@ module.exports = defineConfig({
     trace: 'retain-on-failure',
   },
 
-/* Configure projects for major browser engines to align with our Operational Script Matrix */
+  /* Configure projects for major browser engines to align with our Operational Script Matrix */
   projects: [
     {
       name: 'Smoke Setup',
